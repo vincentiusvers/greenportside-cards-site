@@ -26,30 +26,49 @@
     body {
       font-family: "Lato", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: #f5f7fb;
-      padding: 24px 12px 12px;    /* slightly tighter padding, small bottom */
+      padding: 24px 12px 12px;
       color: #1f2933;
     }
 
     .page-wrapper {
-      max-width: 1100px;
+      max-width: 960px;
       margin: 0 auto;
     }
 
-    /* Two-column layout */
+    /* Layout: stacked by default (no horizontal scroll) */
     .two-column {
       display: flex;
-      gap: 40px;
+      flex-direction: column;
+      gap: 24px;
       align-items: flex-start;
     }
 
     .intro-col {
-      flex: 0 0 40%;
-      max-width: 420px;
+      width: 100%;
+      max-width: 100%;
     }
 
     .carousel-col {
-      flex: 1;
+      width: 100%;
       position: relative;
+    }
+
+    /* Switch to real 2-column layout only on wide screens */
+    @media (min-width: 1100px) {
+      .two-column {
+        flex-direction: row;
+        gap: 40px;
+        align-items: flex-start;
+      }
+
+      .intro-col {
+        flex: 0 0 40%;
+        max-width: 420px;
+      }
+
+      .carousel-col {
+        flex: 1;
+      }
     }
 
     .section-title {
@@ -74,8 +93,9 @@
 
     .cards-carousel {
       overflow: hidden;
-      max-width: 680px;            /* a bit narrower to reduce horizontal need */
-      margin-left: auto;
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
     }
 
     .cards-track {
@@ -92,12 +112,12 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      min-height: 0;
+      min-height: 380px;
     }
 
     .card-image-wrapper {
       width: 100%;
-      height: 190px;               /* slightly shorter image to reduce height */
+      height: 220px;               /* same visual height as the nice version */
       overflow: hidden;
     }
 
@@ -109,7 +129,7 @@
     }
 
     .card-content {
-      padding: 16px 22px 18px;     /* tighter padding but same text size */
+      padding: 18px 24px 20px;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -159,22 +179,6 @@
     .control-btn:active {
       transform: translateY(1px);
       box-shadow: 0 2px 8px rgba(15, 23, 42, 0.16);
-    }
-
-    @media (max-width: 900px) {
-      .two-column {
-        flex-direction: column;
-        gap: 24px;
-      }
-
-      .intro-col {
-        flex: 1 1 auto;
-        max-width: none;
-      }
-
-      .cards-carousel {
-        margin: 0 auto;
-      }
     }
 
     @media (max-width: 768px) {
