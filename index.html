@@ -89,9 +89,11 @@
     /* Slider area */
     .carousel-wrapper {
       position: relative;
+      margin-top: 4px;
     }
 
     .cards-carousel {
+      position: relative;
       overflow: hidden;
       width: 100%;
       max-width: 720px;
@@ -113,11 +115,12 @@
       display: flex;
       flex-direction: column;
       min-height: 380px;
+      position: relative;
     }
 
     .card-image-wrapper {
       width: 100%;
-      height: 220px;               /* same visual height as the nice version */
+      height: 220px;               /* same visual height as the good version */
       overflow: hidden;
     }
 
@@ -152,13 +155,14 @@
       margin-bottom: 4px;
     }
 
-    /* Arrow buttons */
+    /* Arrow buttons – INSIDE the card, top-right, so they don't get cut */
     .carousel-controls {
       position: absolute;
-      top: -36px;
-      right: 0;
+      top: 12px;
+      right: 16px;
       display: flex;
       gap: 8px;
+      z-index: 5;
     }
 
     .control-btn {
@@ -203,7 +207,7 @@
       <div class="intro-col">
         <h2 class="section-title">Our Solution: An Integrated Clean Energy Port</h2>
         <p class="section-subtitle">
-          Rather than looking at a single technology, GreenPortSide considers the entire port energy system – demand,
+          Rather than looking at a single technology, GREENPORTSIDE considers the entire port energy system – demand,
           supply and storage – across short-, medium- and long-term future scenarios. The project explores how different
           technologies can work together in an islanded microgrid, centred on medium-voltage (MV) fast-charging for
           ferries, cargo vessels and vehicles.
@@ -213,21 +217,22 @@
       <!-- Right column: card slider -->
       <div class="carousel-col">
         <div class="carousel-wrapper">
-          <div class="carousel-controls">
-            <button class="control-btn" id="btn-prev" aria-label="Previous">
-              ‹
-            </button>
-            <button class="control-btn" id="btn-next" aria-label="Next">
-              ›
-            </button>
-          </div>
-
+          <!-- Controls sit above the track, but inside the carousel box -->
           <div class="cards-carousel">
+            <div class="carousel-controls">
+              <button class="control-btn" id="btn-prev" aria-label="Previous">
+                ‹
+              </button>
+              <button class="control-btn" id="btn-next" aria-label="Next">
+                ›
+              </button>
+            </div>
+
             <div class="cards-track" id="cards-track">
-              <!-- MV Fast Charging -->
+              <!-- 1: MV Fast Charging (1.png) -->
               <article class="card">
                 <div class="card-image-wrapper">
-                  <img src="Untitled design.png" alt="MV fast charging infrastructure" />
+                  <img src="1.png" alt="MV fast charging infrastructure" />
                 </div>
                 <div class="card-content">
                   <h3 class="card-title">MV Fast Charging</h3>
@@ -238,10 +243,10 @@
                 </div>
               </article>
 
-              <!-- Wave Energy along the Breakwater -->
+              <!-- 2: Wave Energy along the Breakwater (2.png) -->
               <article class="card">
                 <div class="card-image-wrapper">
-                  <img src="Untitled design.png" alt="Wave energy along the breakwater" />
+                  <img src="2.png" alt="Wave energy along the breakwater" />
                 </div>
                 <div class="card-content">
                   <h3 class="card-title">Wave Energy along the Breakwater</h3>
@@ -252,10 +257,10 @@
                 </div>
               </article>
 
-              <!-- Wind Power (Vertical-Axis Turbines) -->
+              <!-- 3: Wind Power (Vertical-Axis Turbines) (6.png) -->
               <article class="card">
                 <div class="card-image-wrapper">
-                  <img src="Untitled design.png" alt="Vertical-axis wind turbines" />
+                  <img src="6.png" alt="Vertical-axis wind turbines" />
                 </div>
                 <div class="card-content">
                   <h3 class="card-title">Wind Power (Vertical-Axis Turbines)</h3>
@@ -266,10 +271,10 @@
                 </div>
               </article>
 
-              <!-- Solar & BIPV -->
+              <!-- 4: Solar & BIPV (4.png) -->
               <article class="card">
                 <div class="card-image-wrapper">
-                  <img src="Untitled design.png" alt="Solar and building-integrated PV" />
+                  <img src="4.png" alt="Solar and building-integrated PV" />
                 </div>
                 <div class="card-content">
                   <h3 class="card-title">Solar &amp; Building-Integrated PV</h3>
@@ -280,10 +285,10 @@
                 </div>
               </article>
 
-              <!-- Tidal Opportunities -->
+              <!-- 5: Tidal Opportunities (3.png) -->
               <article class="card">
                 <div class="card-image-wrapper">
-                  <img src="Untitled design.png" alt="Tidal energy opportunities" />
+                  <img src="3.png" alt="Tidal energy opportunities" />
                 </div>
                 <div class="card-content">
                   <h3 class="card-title">Tidal Opportunities</h3>
@@ -294,10 +299,10 @@
                 </div>
               </article>
 
-              <!-- Liquid Air Energy Storage (LAES) -->
+              <!-- 6: LAES (5.png) -->
               <article class="card">
                 <div class="card-image-wrapper">
-                  <img src="Untitled design.png" alt="Liquid air energy storage" />
+                  <img src="5.png" alt="Liquid air energy storage" />
                 </div>
                 <div class="card-content">
                   <h3 class="card-title">Liquid Air Energy Storage (LAES)</h3>
