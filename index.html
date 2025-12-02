@@ -19,10 +19,14 @@
       padding: 0;
     }
 
+    html, body {
+      height: auto;
+    }
+
     body {
       font-family: "Lato", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: #f5f7fb;
-      padding: 32px 16px;
+      padding: 20px 16px 8px; /* small bottom padding to reduce white space */
       color: #1f2933;
     }
 
@@ -69,25 +73,26 @@
     }
 
     .cards-carousel {
-      position: relative;
-      min-height: 420px;           /* keeps layout stable as cards change */
+      overflow: hidden;
+      max-width: 720px;
+      margin-left: auto;  /* align with right column edge */
+    }
+
+    .cards-track {
+      display: flex;
+      width: 100%;
+      transition: transform 0.45s ease;  /* sliding animation */
     }
 
     .card {
-      display: none;               /* hidden by default */
+      flex: 0 0 100%;               /* each card takes full viewport width */
       background: #ffffff;
       border-radius: 18px;
       box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
       overflow: hidden;
-      max-width: 720px;
-      margin-left: auto;
-      display: none;
+      display: flex;
       flex-direction: column;
-      min-height: 380px;
-    }
-
-    .card.active {
-      display: flex;               /* only active card is visible */
+      min-height: 0;                /* no extra height */
     }
 
     .card-image-wrapper {
@@ -104,7 +109,7 @@
     }
 
     .card-content {
-      padding: 18px 24px 22px;
+      padding: 18px 24px 18px;
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -124,7 +129,7 @@
       font-weight: 400;
       line-height: 1.5;
       color: #4b5563;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
     }
 
     /* Arrow buttons */
@@ -159,7 +164,7 @@
     @media (max-width: 900px) {
       .two-column {
         flex-direction: column;
-        gap: 32px;
+        gap: 24px;
       }
 
       .intro-col {
@@ -167,14 +172,14 @@
         max-width: none;
       }
 
-      .card {
+      .cards-carousel {
         margin: 0 auto;
       }
     }
 
     @media (max-width: 768px) {
       body {
-        padding: 24px 12px;
+        padding: 16px 12px 4px;
       }
 
       .section-title {
@@ -183,10 +188,6 @@
 
       .card-title {
         font-size: 26px;
-      }
-
-      .cards-carousel {
-        min-height: 360px;
       }
     }
   </style>
@@ -217,90 +218,92 @@
             </button>
           </div>
 
-          <div class="cards-carousel" id="cards-carousel">
-            <!-- MV Fast Charging -->
-            <article class="card">
-              <div class="card-image-wrapper">
-                <img src="Untitled design.png" alt="MV fast charging infrastructure" />
-              </div>
-              <div class="card-content">
-                <h3 class="card-title">MV Fast Charging</h3>
-                <p class="card-text">
-                  Medium-voltage fast charging infrastructure for ferries, workboats and heavy vehicles, designed to handle
-                  megawatt-scale power and future battery-electric fleets.
-                </p>
-              </div>
-            </article>
+          <div class="cards-carousel">
+            <div class="cards-track" id="cards-track">
+              <!-- MV Fast Charging -->
+              <article class="card">
+                <div class="card-image-wrapper">
+                  <img src="Untitled design.png" alt="MV fast charging infrastructure" />
+                </div>
+                <div class="card-content">
+                  <h3 class="card-title">MV Fast Charging</h3>
+                  <p class="card-text">
+                    Medium-voltage fast charging infrastructure for ferries, workboats and heavy vehicles, designed to handle
+                    megawatt-scale power and future battery-electric fleets.
+                  </p>
+                </div>
+              </article>
 
-            <!-- Wave Energy along the Breakwater -->
-            <article class="card">
-              <div class="card-image-wrapper">
-                <img src="Untitled design.png" alt="Wave energy along the breakwater" />
-              </div>
-              <div class="card-content">
-                <h3 class="card-title">Wave Energy along the Breakwater</h3>
-                <p class="card-text">
-                  Low-profile overtopping wave energy converters integrated into the breakwater to harvest continuous wave
-                  power at the port boundary, complementing wind and solar.
-                </p>
-              </div>
-            </article>
+              <!-- Wave Energy along the Breakwater -->
+              <article class="card">
+                <div class="card-image-wrapper">
+                  <img src="Untitled design.png" alt="Wave energy along the breakwater" />
+                </div>
+                <div class="card-content">
+                  <h3 class="card-title">Wave Energy along the Breakwater</h3>
+                  <p class="card-text">
+                    Low-profile overtopping wave energy converters integrated into the breakwater to harvest continuous wave
+                    power at the port boundary, complementing wind and solar.
+                  </p>
+                </div>
+              </article>
 
-            <!-- Wind Power (Vertical-Axis Turbines) -->
-            <article class="card">
-              <div class="card-image-wrapper">
-                <img src="Untitled design.png" alt="Vertical-axis wind turbines" />
-              </div>
-              <div class="card-content">
-                <h3 class="card-title">Wind Power (Vertical-Axis Turbines)</h3>
-                <p class="card-text">
-                  Vertical-axis wind turbines suited to turbulent port wind conditions, offering compact, ground-accessible
-                  generation close to the loads.
-                </p>
-              </div>
-            </article>
+              <!-- Wind Power (Vertical-Axis Turbines) -->
+              <article class="card">
+                <div class="card-image-wrapper">
+                  <img src="Untitled design.png" alt="Vertical-axis wind turbines" />
+                </div>
+                <div class="card-content">
+                  <h3 class="card-title">Wind Power (Vertical-Axis Turbines)</h3>
+                  <p class="card-text">
+                    Vertical-axis wind turbines suited to turbulent port wind conditions, offering compact, ground-accessible
+                    generation close to the loads.
+                  </p>
+                </div>
+              </article>
 
-            <!-- Solar & BIPV -->
-            <article class="card">
-              <div class="card-image-wrapper">
-                <img src="Untitled design.png" alt="Solar and building-integrated PV" />
-              </div>
-              <div class="card-content">
-                <h3 class="card-title">Solar &amp; Building-Integrated PV</h3>
-                <p class="card-text">
-                  Solar on rooftops, façades, car-park canopies and walkways to make the most of limited space and strong
-                  local solar resource.
-                </p>
-              </div>
-            </article>
+              <!-- Solar & BIPV -->
+              <article class="card">
+                <div class="card-image-wrapper">
+                  <img src="Untitled design.png" alt="Solar and building-integrated PV" />
+                </div>
+                <div class="card-content">
+                  <h3 class="card-title">Solar &amp; Building-Integrated PV</h3>
+                  <p class="card-text">
+                    Solar on rooftops, façades, car-park canopies and walkways to make the most of limited space and strong
+                    local solar resource.
+                  </p>
+                </div>
+              </article>
 
-            <!-- Tidal Opportunities -->
-            <article class="card">
-              <div class="card-image-wrapper">
-                <img src="Untitled design.png" alt="Tidal energy opportunities" />
-              </div>
-              <div class="card-content">
-                <h3 class="card-title">Tidal Opportunities</h3>
-                <p class="card-text">
-                  Assessment of tidal flows and potential tidal-mill-style concepts to add a predictable, clean energy
-                  source to the port mix.
-                </p>
-              </div>
-            </article>
+              <!-- Tidal Opportunities -->
+              <article class="card">
+                <div class="card-image-wrapper">
+                  <img src="Untitled design.png" alt="Tidal energy opportunities" />
+                </div>
+                <div class="card-content">
+                  <h3 class="card-title">Tidal Opportunities</h3>
+                  <p class="card-text">
+                    Assessment of tidal flows and potential tidal-mill-style concepts to add a predictable, clean energy
+                    source to the port mix.
+                  </p>
+                </div>
+              </article>
 
-            <!-- Liquid Air Energy Storage (LAES) -->
-            <article class="card">
-              <div class="card-image-wrapper">
-                <img src="Untitled design.png" alt="Liquid air energy storage" />
-              </div>
-              <div class="card-content">
-                <h3 class="card-title">Liquid Air Energy Storage (LAES)</h3>
-                <p class="card-text">
-                  Large-scale storage using liquid air, allowing excess renewable energy to be stored and dispatched when
-                  demand peaks, with novel efficiency improvements developed at the University of Brighton.
-                </p>
-              </div>
-            </article>
+              <!-- Liquid Air Energy Storage (LAES) -->
+              <article class="card">
+                <div class="card-image-wrapper">
+                  <img src="Untitled design.png" alt="Liquid air energy storage" />
+                </div>
+                <div class="card-content">
+                  <h3 class="card-title">Liquid Air Energy Storage (LAES)</h3>
+                  <p class="card-text">
+                    Large-scale storage using liquid air, allowing excess renewable energy to be stored and dispatched when
+                    demand peaks, with novel efficiency improvements developed at the University of Brighton.
+                  </p>
+                </div>
+              </article>
+            </div>
           </div>
         </div>
       </div>
@@ -308,34 +311,35 @@
   </div>
 
   <script>
-    // Simple one-card-at-a-time slider
+    // Sliding carousel logic
+    const track = document.getElementById("cards-track");
     const cards = document.querySelectorAll(".card");
     const btnPrev = document.getElementById("btn-prev");
     const btnNext = document.getElementById("btn-next");
 
     let currentIndex = 0;
+    const totalCards = cards.length;
 
-    function showCard(index) {
-      cards.forEach((card, i) => {
-        card.classList.toggle("active", i === index);
-      });
+    function updateSlider() {
+      const offsetPercent = currentIndex * 100;
+      track.style.transform = `translateX(-${offsetPercent}%)`;
     }
 
     function showNext() {
-      currentIndex = (currentIndex + 1) % cards.length;
-      showCard(currentIndex);
+      currentIndex = (currentIndex + 1) % totalCards;
+      updateSlider();
     }
 
     function showPrev() {
-      currentIndex = (currentIndex - 1 + cards.length) % cards.length;
-      showCard(currentIndex);
+      currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+      updateSlider();
     }
 
     btnNext.addEventListener("click", showNext);
     btnPrev.addEventListener("click", showPrev);
 
-    // Show the first card on load
-    showCard(currentIndex);
+    // Initial position
+    updateSlider();
   </script>
 </body>
 </html>
