@@ -98,8 +98,10 @@
       position: relative;
       overflow: hidden;
       width: 100%;
-      max-width: 720px;    /* card can grow up to this, but not more */
-      margin: 0 auto;      /* center it inside the wrapper */
+      max-width: 720px;
+      margin: 0 auto;
+      padding-right: 40px;    /* 🔹 add breathing room on the right */
+      box-sizing: border-box; /* make padding counted inside the width */
     }
 
     .cards-track {
