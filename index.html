@@ -19,22 +19,26 @@
       padding: 0;
     }
 
+    html, body {
+      overflow-x: hidden;          /* avoid horizontal scrollbar inside iframe */
+    }
+
     body {
       font-family: "Lato", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: #f5f7fb;
-      padding: 32px 16px;
+      padding: 24px 12px 12px;    /* slightly tighter padding, small bottom */
       color: #1f2933;
     }
 
     .page-wrapper {
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
     }
 
     /* Two-column layout */
     .two-column {
       display: flex;
-      gap: 48px;
+      gap: 40px;
       align-items: flex-start;
     }
 
@@ -52,7 +56,7 @@
       font-size: 34px;             /* Lato bold 34 for main title */
       font-weight: 700;
       color: var(--accent-blue);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       line-height: 1.2;
     }
 
@@ -70,8 +74,8 @@
 
     .cards-carousel {
       overflow: hidden;
-      max-width: 720px;
-      margin-left: auto;  /* align to the right column edge like before */
+      max-width: 680px;            /* a bit narrower to reduce horizontal need */
+      margin-left: auto;
     }
 
     .cards-track {
@@ -81,19 +85,19 @@
     }
 
     .card {
-      flex: 0 0 100%;               /* each card fills the carousel width */
+      flex: 0 0 100%;              /* each card fills the carousel width */
       background: #ffffff;
       border-radius: 18px;
-      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      min-height: 380px;
+      min-height: 0;
     }
 
     .card-image-wrapper {
       width: 100%;
-      height: 220px;
+      height: 190px;               /* slightly shorter image to reduce height */
       overflow: hidden;
     }
 
@@ -105,33 +109,33 @@
     }
 
     .card-content {
-      padding: 18px 24px 22px;
+      padding: 16px 22px 18px;     /* tighter padding but same text size */
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
       flex: 1;
     }
 
     .card-title {
-      font-size: 34px;            /* Lato light 34 for card title */
+      font-size: 34px;             /* Lato light 34 for card title */
       font-weight: 300;
       line-height: 1.1;
       margin-bottom: 4px;
-      color: var(--accent-blue);  /* same blue as main title */
+      color: var(--accent-blue);
     }
 
     .card-text {
-      font-size: 14px;            /* Lato 14 for body text */
+      font-size: 14px;             /* Lato 14 for body text */
       font-weight: 400;
       line-height: 1.5;
       color: #4b5563;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
     }
 
     /* Arrow buttons */
     .carousel-controls {
       position: absolute;
-      top: -40px;
+      top: -36px;
       right: 0;
       display: flex;
       gap: 8px;
@@ -141,8 +145,8 @@
       border: none;
       background: #ffffff;
       border-radius: 999px;
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -160,7 +164,7 @@
     @media (max-width: 900px) {
       .two-column {
         flex-direction: column;
-        gap: 32px;
+        gap: 24px;
       }
 
       .intro-col {
@@ -175,7 +179,7 @@
 
     @media (max-width: 768px) {
       body {
-        padding: 24px 12px;
+        padding: 18px 10px 10px;
       }
 
       .section-title {
@@ -195,7 +199,7 @@
       <div class="intro-col">
         <h2 class="section-title">Our Solution: An Integrated Clean Energy Port</h2>
         <p class="section-subtitle">
-          Rather than looking at a single technology, GREENPORTSIDE considers the entire port energy system – demand,
+          Rather than looking at a single technology, GreenPortSide considers the entire port energy system – demand,
           supply and storage – across short-, medium- and long-term future scenarios. The project explores how different
           technologies can work together in an islanded microgrid, centred on medium-voltage (MV) fast-charging for
           ferries, cargo vessels and vehicles.
@@ -219,7 +223,7 @@
               <!-- MV Fast Charging -->
               <article class="card">
                 <div class="card-image-wrapper">
-                  <img src="1.png" alt="MV fast charging infrastructure" />
+                  <img src="Untitled design.png" alt="MV fast charging infrastructure" />
                 </div>
                 <div class="card-content">
                   <h3 class="card-title">MV Fast Charging</h3>
@@ -233,7 +237,7 @@
               <!-- Wave Energy along the Breakwater -->
               <article class="card">
                 <div class="card-image-wrapper">
-                  <img src="2.png" alt="Wave energy along the breakwater" />
+                  <img src="Untitled design.png" alt="Wave energy along the breakwater" />
                 </div>
                 <div class="card-content">
                   <h3 class="card-title">Wave Energy along the Breakwater</h3>
@@ -247,7 +251,7 @@
               <!-- Wind Power (Vertical-Axis Turbines) -->
               <article class="card">
                 <div class="card-image-wrapper">
-                  <img src="6.png" alt="Vertical-axis wind turbines" />
+                  <img src="Untitled design.png" alt="Vertical-axis wind turbines" />
                 </div>
                 <div class="card-content">
                   <h3 class="card-title">Wind Power (Vertical-Axis Turbines)</h3>
@@ -261,7 +265,7 @@
               <!-- Solar & BIPV -->
               <article class="card">
                 <div class="card-image-wrapper">
-                  <img src="4.png" alt="Solar and building-integrated PV" />
+                  <img src="Untitled design.png" alt="Solar and building-integrated PV" />
                 </div>
                 <div class="card-content">
                   <h3 class="card-title">Solar &amp; Building-Integrated PV</h3>
@@ -275,7 +279,7 @@
               <!-- Tidal Opportunities -->
               <article class="card">
                 <div class="card-image-wrapper">
-                  <img src="3.png" alt="Tidal energy opportunities" />
+                  <img src="Untitled design.png" alt="Tidal energy opportunities" />
                 </div>
                 <div class="card-content">
                   <h3 class="card-title">Tidal Opportunities</h3>
@@ -289,7 +293,7 @@
               <!-- Liquid Air Energy Storage (LAES) -->
               <article class="card">
                 <div class="card-image-wrapper">
-                  <img src="5.png" alt="Liquid air energy storage" />
+                  <img src="Untitled design.png" alt="Liquid air energy storage" />
                 </div>
                 <div class="card-content">
                   <h3 class="card-title">Liquid Air Energy Storage (LAES)</h3>
