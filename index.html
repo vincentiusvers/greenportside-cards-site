@@ -3,12 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GreenPortSide Card Carousel</title>
+  <title>GreenPortSide Card Slider</title>
 
-  <!-- Lato font (light + regular) -->
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
+  <!-- Lato font (light + regular + bold) -->
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --accent-blue: #0086ff;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -27,61 +31,68 @@
       margin: 0 auto;
     }
 
+    /* Two-column layout */
+    .two-column {
+      display: flex;
+      gap: 48px;
+      align-items: flex-start;
+    }
+
+    .intro-col {
+      flex: 0 0 40%;
+      max-width: 420px;
+    }
+
+    .carousel-col {
+      flex: 1;
+      position: relative;
+    }
+
     .section-title {
-      font-size: 34px;         /* Lato Light 34 for section title */
-      font-weight: 300;
+      font-size: 34px;             /* Lato bold 34 for main title */
+      font-weight: 700;
+      color: var(--accent-blue);
       margin-bottom: 16px;
+      line-height: 1.2;
     }
 
     .section-subtitle {
       font-size: 14px;
       font-weight: 400;
-      color: #5f6c80;
-      margin-bottom: 24px;
-      max-width: 720px;
+      color: #323f4b;
+      line-height: 1.6;
     }
 
+    /* Slider area */
     .carousel-wrapper {
       position: relative;
     }
 
     .cards-carousel {
-      display: flex;
-      gap: 20px;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      padding-bottom: 10px;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .cards-carousel::-webkit-scrollbar {
-      height: 8px;
-    }
-
-    .cards-carousel::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .cards-carousel::-webkit-scrollbar-thumb {
-      background: #c2c8d5;
-      border-radius: 999px;
+      position: relative;
+      min-height: 420px;           /* keeps layout stable as cards change */
     }
 
     .card {
-      flex: 0 0 320px;        /* card width */
+      display: none;               /* hidden by default */
       background: #ffffff;
       border-radius: 18px;
       box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
       overflow: hidden;
-      scroll-snap-align: start;
-      display: flex;
+      max-width: 720px;
+      margin-left: auto;
+      display: none;
       flex-direction: column;
       min-height: 380px;
     }
 
+    .card.active {
+      display: flex;               /* only active card is visible */
+    }
+
     .card-image-wrapper {
       width: 100%;
-      height: 180px;
+      height: 220px;
       overflow: hidden;
     }
 
@@ -93,37 +104,30 @@
     }
 
     .card-content {
-      padding: 18px 20px 14px;
+      padding: 18px 24px 22px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
       flex: 1;
     }
 
     .card-title {
-      font-size: 34px;        /* Lato Light 34 for card title */
+      font-size: 34px;            /* Lato light 34 for card title */
       font-weight: 300;
       line-height: 1.1;
       margin-bottom: 4px;
+      color: var(--accent-blue);  /* same blue as main title */
     }
 
     .card-text {
-      font-size: 14px;        /* Lato 14 for sub text */
+      font-size: 14px;            /* Lato 14 for body text */
       font-weight: 400;
       line-height: 1.5;
       color: #4b5563;
       margin-bottom: 8px;
     }
 
-    .card-tag {
-      font-size: 12px;
-      font-weight: 400;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: #2563eb;
-      margin-top: auto;
-    }
-
+    /* Arrow buttons */
     .carousel-controls {
       position: absolute;
       top: -40px;
@@ -152,148 +156,186 @@
       box-shadow: 0 2px 8px rgba(15, 23, 42, 0.16);
     }
 
+    @media (max-width: 900px) {
+      .two-column {
+        flex-direction: column;
+        gap: 32px;
+      }
+
+      .intro-col {
+        flex: 1 1 auto;
+        max-width: none;
+      }
+
+      .card {
+        margin: 0 auto;
+      }
+    }
+
     @media (max-width: 768px) {
+      body {
+        padding: 24px 12px;
+      }
+
       .section-title {
         font-size: 26px;
       }
 
-      .card {
-        flex: 0 0 260px;
+      .card-title {
+        font-size: 26px;
       }
 
-      .card-title {
-        font-size: 24px;
+      .cards-carousel {
+        min-height: 360px;
       }
     }
   </style>
 </head>
 <body>
   <div class="page-wrapper">
-    <h2 class="section-title">GreenPortSide technologies</h2>
-    <p class="section-subtitle">
-      Key building blocks of a locally powered, low-carbon port – from megawatt-scale fast charging to wave, wind, solar and storage along the harbour.
-    </p>
-
-    <div class="carousel-wrapper">
-      <div class="carousel-controls">
-        <button class="control-btn" id="btn-prev" aria-label="Previous">
-          ‹
-        </button>
-        <button class="control-btn" id="btn-next" aria-label="Next">
-          ›
-        </button>
+    <div class="two-column">
+      <!-- Left column: title + subtitle -->
+      <div class="intro-col">
+        <h2 class="section-title">Our Solution: An Integrated Clean Energy Port</h2>
+        <p class="section-subtitle">
+          Rather than looking at a single technology, GreenPortSide considers the entire port energy system – demand,
+          supply and storage – across short-, medium- and long-term future scenarios. The project explores how different
+          technologies can work together in an islanded microgrid, centred on medium-voltage (MV) fast-charging for
+          ferries, cargo vessels and vehicles.
+        </p>
       </div>
 
-      <div class="cards-carousel" id="cards-carousel">
-        <!-- MV Fast Charging -->
-        <article class="card">
-          <div class="card-image-wrapper">
-            <!-- Same trial image for all cards -->
-            <img src="Untitled design.png" alt="MV fast charging infrastructure" />
+      <!-- Right column: card slider -->
+      <div class="carousel-col">
+        <div class="carousel-wrapper">
+          <div class="carousel-controls">
+            <button class="control-btn" id="btn-prev" aria-label="Previous">
+              ‹
+            </button>
+            <button class="control-btn" id="btn-next" aria-label="Next">
+              ›
+            </button>
           </div>
-          <div class="card-content">
-            <h3 class="card-title">MV Fast Charging</h3>
-            <p class="card-text">
-              Medium-voltage fast charging infrastructure for ferries, workboats and heavy vehicles, designed to handle
-              megawatt-scale power and future battery-electric fleets.
-            </p>
-            <p class="card-tag">IUK project exploitation plan</p>
-          </div>
-        </article>
 
-        <!-- Wave Energy along the Breakwater -->
-        <article class="card">
-          <div class="card-image-wrapper">
-            <img src="Untitled design.png" alt="Wave energy along the breakwater" />
-          </div>
-          <div class="card-content">
-            <h3 class="card-title">Wave Energy along the Breakwater</h3>
-            <p class="card-text">
-              Low-profile overtopping wave energy converters integrated into the breakwater to harvest continuous wave
-              power at the port boundary, complementing wind and solar.
-            </p>
-            <p class="card-tag">IUK project exploitation plan</p>
-          </div>
-        </article>
+          <div class="cards-carousel" id="cards-carousel">
+            <!-- MV Fast Charging -->
+            <article class="card">
+              <div class="card-image-wrapper">
+                <img src="Untitled design.png" alt="MV fast charging infrastructure" />
+              </div>
+              <div class="card-content">
+                <h3 class="card-title">MV Fast Charging</h3>
+                <p class="card-text">
+                  Medium-voltage fast charging infrastructure for ferries, workboats and heavy vehicles, designed to handle
+                  megawatt-scale power and future battery-electric fleets.
+                </p>
+              </div>
+            </article>
 
-        <!-- Wind Power (Vertical-Axis Turbines) -->
-        <article class="card">
-          <div class="card-image-wrapper">
-            <img src="Untitled design.png" alt="Vertical-axis wind turbines" />
-          </div>
-          <div class="card-content">
-            <h3 class="card-title">Wind Power (Vertical-Axis Turbines)</h3>
-            <p class="card-text">
-              Vertical-axis wind turbines suited to turbulent port wind conditions, offering compact, ground-accessible
-              generation close to the loads.
-            </p>
-            <p class="card-tag">IUK project exploitation plan</p>
-          </div>
-        </article>
+            <!-- Wave Energy along the Breakwater -->
+            <article class="card">
+              <div class="card-image-wrapper">
+                <img src="Untitled design.png" alt="Wave energy along the breakwater" />
+              </div>
+              <div class="card-content">
+                <h3 class="card-title">Wave Energy along the Breakwater</h3>
+                <p class="card-text">
+                  Low-profile overtopping wave energy converters integrated into the breakwater to harvest continuous wave
+                  power at the port boundary, complementing wind and solar.
+                </p>
+              </div>
+            </article>
 
-        <!-- Solar & BIPV -->
-        <article class="card">
-          <div class="card-image-wrapper">
-            <img src="Untitled design.png" alt="Solar and building-integrated PV" />
-          </div>
-          <div class="card-content">
-            <h3 class="card-title">Solar &amp; Building-Integrated PV</h3>
-            <p class="card-text">
-              Solar on rooftops, façades, car-park canopies and walkways to make the most of limited space and strong
-              local solar resource.
-            </p>
-            <p class="card-tag">IUK project exploitation plan</p>
-          </div>
-        </article>
+            <!-- Wind Power (Vertical-Axis Turbines) -->
+            <article class="card">
+              <div class="card-image-wrapper">
+                <img src="Untitled design.png" alt="Vertical-axis wind turbines" />
+              </div>
+              <div class="card-content">
+                <h3 class="card-title">Wind Power (Vertical-Axis Turbines)</h3>
+                <p class="card-text">
+                  Vertical-axis wind turbines suited to turbulent port wind conditions, offering compact, ground-accessible
+                  generation close to the loads.
+                </p>
+              </div>
+            </article>
 
-        <!-- Tidal Opportunities -->
-        <article class="card">
-          <div class="card-image-wrapper">
-            <img src="Untitled design.png" alt="Tidal energy opportunities" />
-          </div>
-          <div class="card-content">
-            <h3 class="card-title">Tidal Opportunities</h3>
-            <p class="card-text">
-              Assessment of tidal flows and potential tidal-mill-style concepts to add a predictable, clean energy
-              source to the port mix.
-            </p>
-            <p class="card-tag">IUK project exploitation plan</p>
-          </div>
-        </article>
+            <!-- Solar & BIPV -->
+            <article class="card">
+              <div class="card-image-wrapper">
+                <img src="Untitled design.png" alt="Solar and building-integrated PV" />
+              </div>
+              <div class="card-content">
+                <h3 class="card-title">Solar &amp; Building-Integrated PV</h3>
+                <p class="card-text">
+                  Solar on rooftops, façades, car-park canopies and walkways to make the most of limited space and strong
+                  local solar resource.
+                </p>
+              </div>
+            </article>
 
-        <!-- Liquid Air Energy Storage (LAES) -->
-        <article class="card">
-          <div class="card-image-wrapper">
-            <img src="Untitled design.png" alt="Liquid air energy storage" />
+            <!-- Tidal Opportunities -->
+            <article class="card">
+              <div class="card-image-wrapper">
+                <img src="Untitled design.png" alt="Tidal energy opportunities" />
+              </div>
+              <div class="card-content">
+                <h3 class="card-title">Tidal Opportunities</h3>
+                <p class="card-text">
+                  Assessment of tidal flows and potential tidal-mill-style concepts to add a predictable, clean energy
+                  source to the port mix.
+                </p>
+              </div>
+            </article>
+
+            <!-- Liquid Air Energy Storage (LAES) -->
+            <article class="card">
+              <div class="card-image-wrapper">
+                <img src="Untitled design.png" alt="Liquid air energy storage" />
+              </div>
+              <div class="card-content">
+                <h3 class="card-title">Liquid Air Energy Storage (LAES)</h3>
+                <p class="card-text">
+                  Large-scale storage using liquid air, allowing excess renewable energy to be stored and dispatched when
+                  demand peaks, with novel efficiency improvements developed at the University of Brighton.
+                </p>
+              </div>
+            </article>
           </div>
-          <div class="card-content">
-            <h3 class="card-title">Liquid Air Energy Storage (LAES)</h3>
-            <p class="card-text">
-              Large-scale storage using liquid air, allowing excess renewable energy to be stored and dispatched when
-              demand peaks, with novel efficiency improvements developed at the University of Brighton.
-            </p>
-            <p class="card-tag">IUK project exploitation plan</p>
-          </div>
-        </article>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
-    // Simple scroll controls for the carousel
-    const carousel = document.getElementById("cards-carousel");
+    // Simple one-card-at-a-time slider
+    const cards = document.querySelectorAll(".card");
     const btnPrev = document.getElementById("btn-prev");
     const btnNext = document.getElementById("btn-next");
 
-    function scrollByCard(direction = 1) {
-      const card = carousel.querySelector(".card");
-      if (!card) return;
-      const cardWidth = card.getBoundingClientRect().width + 20; // card + gap
-      carousel.scrollBy({ left: direction * cardWidth, behavior: "smooth" });
+    let currentIndex = 0;
+
+    function showCard(index) {
+      cards.forEach((card, i) => {
+        card.classList.toggle("active", i === index);
+      });
     }
 
-    btnPrev.addEventListener("click", () => scrollByCard(-1));
-    btnNext.addEventListener("click", () => scrollByCard(1));
+    function showNext() {
+      currentIndex = (currentIndex + 1) % cards.length;
+      showCard(currentIndex);
+    }
+
+    function showPrev() {
+      currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+      showCard(currentIndex);
+    }
+
+    btnNext.addEventListener("click", showNext);
+    btnPrev.addEventListener("click", showPrev);
+
+    // Show the first card on load
+    showCard(currentIndex);
   </script>
 </body>
 </html>
