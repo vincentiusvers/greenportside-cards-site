@@ -55,17 +55,30 @@
     }
 
     /* Mobile / narrower screens: stack */
-    @media (max-width: 980px) {
+    @media (max-width: 600px) {
       .two-column {
         flex-direction: column;
-        gap: 24px;
+        gap: 16px;
       }
-
+    
       .carousel-col {
         flex: 1 1 auto;
         max-width: 100%;
       }
+    
+      .card {
+        min-height: auto;           /* let content decide the height */
+      }
+    
+      .card-image-wrapper {
+        height: 160px;              /* shorter image to reduce total height */
+      }
+    
+      body {
+        padding: 16px 8px 8px;      /* a bit tighter around the block */
+      }
     }
+
 
     .section-title {
       font-size: 34px;             /* Lato bold 34 for main title */
